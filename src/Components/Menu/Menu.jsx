@@ -1,11 +1,12 @@
 import React from "react"
 import { useEffect, useContext } from "react"
 
-import { Container, Flex, Button } from '@chakra-ui/react'
+import { Container, Flex, Button, Center } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 
 import Context from '../../context/todoContext'
-export default function Menu({ showInputHandler }) {
+export default function Menu({ showInputHandler, setActiveMenu }) {
+
 
   const { dispatch, setFilterNameState } = useContext(Context)
 
@@ -32,12 +33,20 @@ export default function Menu({ showInputHandler }) {
 
 
   return (
+    <>
     <Container>
-      <Flex justifyContent={'center'} gap={'2rem'} flexWrap={'wrap'}>
+        <Flex
+          w={['80%', '100%']}
+          flexDirection={['column', 'row']}
+          justifyContent={'center'}
+          gap={['0.5rem', '1rem', '1.5rem']}
+          flexWrap={'wrap'}
+          m={'auto'}
+        >
 
-        <Button backgroundColor={'#457b9d'} color={'white'} size='md' onClick={() => setFilterNameState('none')}>Все задачи</Button>
-        <Button backgroundColor={'#f4a261'} color={'white'} size='md' onClick={() => setFilterNameState('work')}>К выполнению</Button>
-        <Button backgroundColor={'#2a9d8f'} color={'white'} size='md' onClick={() => setFilterNameState('done')}>Завершенно</Button>
+          <Button backgroundColor={'#457b9d'} color={'white'} size='md' onClick={() => { setFilterNameState('none'); setActiveMenu('all') }}>Все задачи</Button>
+          <Button backgroundColor={'#f4a261'} color={'white'} size='md' onClick={() => { setFilterNameState('work'); setActiveMenu('work') }}>К выполнению</Button>
+          <Button backgroundColor={'#2a9d8f'} color={'white'} size='md' onClick={() => { setFilterNameState('done'); setActiveMenu('done') }}>Завершенно</Button>
         <Button
           colorScheme='green' size='md'
           onClick={showInputHandler}
@@ -46,5 +55,6 @@ export default function Menu({ showInputHandler }) {
         </Button>
       </Flex>
     </Container>
+    </>
   )
 }

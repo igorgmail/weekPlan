@@ -32,7 +32,7 @@ export default function Task({ item, data }) {
 
   return (
     <Flex justifyContent={'center'} alignItems={'center'} mt='2rem' w={'100%'}>
-      <HStack w={["90%", "70%", '60%']} data-item={data} >
+      <HStack w={"90%"} data-item={data} >
         <InputGroup
           w={'100%'}
           m={'auto'}

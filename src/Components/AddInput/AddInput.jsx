@@ -2,8 +2,8 @@ import React from "react"
 import { useRef, useEffect, useState, useContext } from "react"
 import './style.css'
 import Context from '../../context/todoContext'
-import { Flex, Stack, Input, InputGroup, InputRightElement, Button, Text } from "@chakra-ui/react"
-import { AddIcon } from '@chakra-ui/icons'
+import { Flex, HStack, Input, InputGroup, InputRightElement, Button, Text } from "@chakra-ui/react"
+import { AddIcon, CloseIcon } from '@chakra-ui/icons'
 
 
 export default function AddInput({ showInputHandler }) {
@@ -38,16 +38,16 @@ export default function AddInput({ showInputHandler }) {
   }
 
   return (
-    <Flex justifyContent={'center'} alignItems={'center'} mt='2rem' w={'100%'}>
-      <Stack w={'60%'}>
-        <Text fontSize='1rem' as='u' textAlign={'center'} fontWeight={'500'}>Добавление Новой Задачи</Text>
+    <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'} mt='2rem' w={'100%'}>
+      <Text fontSize='1rem' textAlign={'center'} fontWeight={'500'}>Добавление Новой Задачи</Text>
+      <HStack w={'60%'}>
+
         <InputGroup
           w={'100%'}
           m={'auto'}
           border='2px' borderColor='gray.400'
           borderRadius={'8px'}
         >
-
           <Input
             ref={inputRef}
             type="text"
@@ -55,8 +55,6 @@ export default function AddInput({ showInputHandler }) {
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyPress}
           />
-
-
 
           <InputRightElement>
             <Button
@@ -69,7 +67,10 @@ export default function AddInput({ showInputHandler }) {
           </InputRightElement>
 
         </InputGroup>
-      </Stack>
+        <Button onClick={() => showInputHandler()} >
+          <CloseIcon />
+        </Button>
+      </HStack>
       <hr></hr>
     </Flex>
   )

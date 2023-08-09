@@ -9,6 +9,7 @@ import TaslList from "../TaskList/TaslList"
 import AddInput from "../AddInput/AddInput";
 import reducer from '../../reducers/reducer'
 import filterReducer from '../../reducers/filterReducer'
+import { Center } from "@chakra-ui/react";
 
 
 export default function Home({ dataTaskList }) {
@@ -19,6 +20,7 @@ export default function Home({ dataTaskList }) {
   // const [filterNameState, dispatchFilter] = useReducer(filterReducer, [])
   const [filterNameState, setFilterNameState] = useState('none')
 
+  const [activeMenu, setActiveMenu] = useState('all')
 
   const showInputHandler = () => {
     setAddInputVisible((current) => !current)
@@ -41,11 +43,11 @@ export default function Home({ dataTaskList }) {
 
     <Context.Provider value={{ visibleList, dispatch, setFilterNameState }}>
       <Navbar />
-      <Menu showInputHandler={showInputHandler} />
+      <Menu showInputHandler={showInputHandler} setActiveMenu={setActiveMenu} />
       {addInputVisible &&
         <AddInput showInputHandler={showInputHandler} />
       }
-      <TaslList />
+      <TaslList activeMenu={activeMenu} />
     </Context.Provider>
 
   )
