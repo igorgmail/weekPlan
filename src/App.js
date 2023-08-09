@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import React from 'react';
+// import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+// import Context from '../src/context/todoContext'
 import './App.css';
 
+import Home from './Components/Home/Home';
+
+
+
 function App() {
+  console.log("-----Render APP");
+  const dataTask = {
+    task: 'First task',
+    status: 'done',
+    dataEnd: new Date(),
+  }
+
+  let dataTaskList = []
+
+  dataTaskList.push(dataTask);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Routes>
+      <Route path='/' element={<Home dataTaskList={dataTaskList} />} />
+    </Routes>
+
+
   );
 }
 
