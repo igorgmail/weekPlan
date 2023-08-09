@@ -11,6 +11,7 @@ export default function AddInput({ showInputHandler }) {
   const inputRef = useRef(null)
   const { dispatch, setOriginStateList } = useContext(Context)
 
+  const [taskMenuShow, setTaskMenuShow] = useState(false)
   useEffect(() => {
     inputRef.current.focus()
   }, [])
@@ -40,7 +41,7 @@ export default function AddInput({ showInputHandler }) {
   return (
     <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'} mt='2rem' w={'100%'}>
       <Text fontSize='1rem' textAlign={'center'} fontWeight={'500'}>Добавление Новой Задачи</Text>
-      <HStack w={'60%'}>
+      <HStack w={['90%', '90%', '60%']}>
 
         <InputGroup
           w={'100%'}

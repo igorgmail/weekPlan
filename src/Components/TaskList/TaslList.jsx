@@ -19,8 +19,9 @@ export default function TaslList({ activeMenu }) {
 
   const { visibleList } = useContext(Context);
   return (
-    <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={["90%", "70%", '60%']} m={'auto'} mt={'2rem'}>
-      <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'}>{activeBage.text}</Badge>
+    <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'auto'} mt={'2rem'}>
+      <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
+
       {visibleList.length
         ?
         (visibleList.map((el, ind) => (
@@ -28,20 +29,8 @@ export default function TaslList({ activeMenu }) {
         )))
         :
         (
-          <InputGroup
-            w={'50%'}
-            m={'auto'}
-            mt={'2rem'}
-            border='2px' borderColor='gray.400'
-            borderRadius={'8px'}
-          >
-
-            <Input
-              fontWeight={'500'}
-              readOnly={true}
-              defaultValue={'Нет Задач'}
-              textDecoration={'none'}
-              textAlign={'center'} />
+          <InputGroup w={'50%'} m={'auto'} mt={'2rem'} border='2px' borderColor='gray.400' borderRadius={'8px'}>
+            <Input fontWeight={'500'} readOnly={true} defaultValue={'Нет Задач'} textDecoration={'none'} textAlign={'center'} />
           </InputGroup>
         )
       }

@@ -1,8 +1,9 @@
 import React from "react"
 import { useState, useEffect, useContext } from "react"
-import { Button, Flex, HStack, Input, InputGroup } from "@chakra-ui/react"
-import { DeleteIcon, CheckIcon } from '@chakra-ui/icons'
+import { Button, Flex, HStack, VStack, Input, InputGroup, Spacer } from "@chakra-ui/react"
+import { DeleteIcon, HamburgerIcon, CheckIcon } from '@chakra-ui/icons'
 
+import TaskMenu from "../TaskMenu/TaskMenu"
 import Context from "../../context/todoContext"
 
 export default function Task({ item, data }) {
@@ -18,7 +19,8 @@ export default function Task({ item, data }) {
 
 
   const toogleStatusButton = (e) => {
-    const dataItem = e.target.closest('.chakra-stack').dataset.item
+    console.log("▶ ⇛ e.target.closest('.task-input'):", e.target.closest('.task-input'));
+    const dataItem = e.target.closest('.task-input').dataset.item
     console.log("▶ ⇛ dataItem:", dataItem);
     dispatch({
       type: 'TOGGLE_STATUS',
@@ -31,9 +33,15 @@ export default function Task({ item, data }) {
 
 
   return (
-    <Flex justifyContent={'center'} alignItems={'center'} mt='2rem' w={'100%'}>
-      <HStack w={"90%"} data-item={data} >
+    <Flex
+      className={"task-input"}
+      data-item={data}
+      flexDirection={['column', 'column', 'row']} justifyContent={'center'} alignItems={'center'} w={'100%'} gap={'8px'} mb={'10px'}
+
+    >
+
         <InputGroup
+
           w={'100%'}
           m={'auto'}
           border='2px' borderColor='gray.400'
@@ -45,8 +53,7 @@ export default function Task({ item, data }) {
                 readOnly={inputRead}
                 defaultValue={item.task}
                 textDecoration={'line-through'}
-                backgroundColor={'#baf3d8'}
-              // textDecoration={'none'}
+              backgroundColor={'#baf3d8'}
               />
             )
             :
@@ -55,37 +62,29 @@ export default function Task({ item, data }) {
                 fontWeight={'500'}
                 readOnly={inputRead}
                 defaultValue={item.task}
-                textDecoration={'none'}
-              // textDecoration={'none'}
+              textDecoration={'none'}
               />
-            )
+          )
+        }
+      </InputGroup>
 
-          }
-
-
-        </InputGroup>
+      <Flex w={['100%', '100%', 'auto']} gap={'8px'}>
         {item.status === 'done' ? (
-          <>
-            <Button onClick={toogleStatusButton} colorScheme='teal' variant='outline'>
+          <Button onClick={toogleStatusButton} colorScheme='teal' variant='outline' p={'0'}>
               <CheckIcon color='green.500' boxSize={6} />
             </Button>
-            <Button >
-              <DeleteIcon boxSize={6} color='red.500' />
-            </Button>
-          </>
-
-        ) : (<>
-          <Button onClick={toogleStatusButton}>
+        ) : (
+          <Button onClick={toogleStatusButton} p={'0'}>
             <CheckIcon boxSize={6} opacity={'0.5'} />
           </Button>
-          <Button >
-            <DeleteIcon boxSize={6} color='red.500' />
-          </Button>
-        </>
-
         )}
 
-      </HStack >
+        <Spacer flex='1'></Spacer>
+        <Button p={'0'}>
+          <HamburgerIcon boxSize={6} color='grey.500' />
+        </Button>
+      </Flex>
+
     </Flex >
   )
 }
