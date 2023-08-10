@@ -1,26 +1,14 @@
 import React from "react"
-import { useEffect, useContext, useRef } from "react"
+import { useEffect, useContext } from "react"
 
-import { Container, Flex, Button, Center } from '@chakra-ui/react'
-import { AddIcon } from '@chakra-ui/icons'
+import { Container, Button, Grid, GridItem } from '@chakra-ui/react'
 
+import AddTaskModal from "../AddTaskModal/AddTaskModal"
 import Context from '../../context/todoContext'
 export default function Menu({ showInputHandler, setActiveMenu }) {
 
 
-  const { dispatch, setFilterNameState } = useContext(Context)
-
-  const filterDoneHandler = () => {
-    dispatch({
-      type: 'FILTER_BY_DONE'
-    })
-  }
-
-  const filterAllHandler = () => {
-    dispatch({
-      type: 'FILTER_BY_All'
-    })
-  }
+  const { setFilterNameState } = useContext(Context)
 
 
   useEffect(() => {
@@ -31,25 +19,23 @@ export default function Menu({ showInputHandler, setActiveMenu }) {
   return (
     <>
     <Container>
-        <Flex
-          w={['80%', '100%']}
-          flexDirection={['column', 'row']}
-          justifyContent={'center'}
-          gap={['0.5rem', '1rem', '1.5rem']}
-          flexWrap={'wrap'}
-          m={'auto'}
-        >
 
-          <Button backgroundColor={'#457b9d'} color={'white'} size='md' onClick={() => { setFilterNameState('none'); setActiveMenu('all') }}>Все задачи</Button>
-          <Button backgroundColor={'#f4a261'} color={'white'} size='md' onClick={() => { setFilterNameState('work'); setActiveMenu('work') }}>К выполнению</Button>
-          <Button backgroundColor={'#2a9d8f'} color={'white'} size='md' onClick={() => { setFilterNameState('done'); setActiveMenu('done') }}>Завершенно</Button>
-        <Button
-          colorScheme='green' size='md'
-          onClick={showInputHandler}
-        >
-          <AddIcon />
-        </Button>
-      </Flex>
+        <Grid templateColumns={['1fr 1fr', '1fr 1fr 1fr 1fr']} gap={2}>
+          <GridItem w='100%' h='10' rowSpan={1} colSpan={['2', '1']}>
+            <Button w={'100%'} backgroundColor={'#457b9d'} color={'white'} onClick={() => { setFilterNameState('none'); setActiveMenu('all') }}>Все задачи</Button>
+          </GridItem>
+          <GridItem w='100%' h='10'  >
+            <Button w={'100%'} backgroundColor={'#f4a261'} color={'white'} size='md' onClick={() => { setFilterNameState('work'); setActiveMenu('work') }}>К выполнению</Button>
+          </GridItem>
+          <GridItem w='100%' h='10'  >
+            <Button w={'100%'} backgroundColor={'#2a9d8f'} color={'white'} size='md' onClick={() => { setFilterNameState('done'); setActiveMenu('done') }}>Завершенно</Button>
+          </GridItem>
+          <GridItem w='100%' h='10' rowSpan={1} colSpan={['2', '1']} >
+
+            <AddTaskModal></AddTaskModal>
+          </GridItem>
+        </Grid>
+
     </Container>
     </>
   )

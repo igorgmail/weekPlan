@@ -3,10 +3,10 @@ import Context from '../../context/todoContext'
 
 import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
-import { Button, IconButton, Flex, Textarea } from "@chakra-ui/react"
+import { Button, Box, IconButton, Flex, Textarea } from "@chakra-ui/react"
 import { ExternalLinkIcon, HamburgerIcon, AddIcon, RepeatIcon, EditIcon } from '@chakra-ui/icons'
 
-export default function TaskMenu({ item, data }) {
+export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
   const { dispatch } = useContext(Context)
 
   const { isOpen, onOpen, onClose, isClose } = useDisclosure()
@@ -53,11 +53,11 @@ export default function TaskMenu({ item, data }) {
   })
   return (
     <>
-      <Button p={'0'}>
-        <HamburgerIcon boxSize={6} color='grey.500' onClick={onOpen} />
-      </Button>
+      {/* <Box onClick={onOpen} as="div"> */}
+      {/* <HamburgerIcon boxSize={6} color='grey.500' onClick={onOpen} /> */}
+      {/* </Box> */}
 
-      <Modal onClose={closeModalHandler} isOpen={isOpen} isCentered >
+      <Modal onClose={closeModal} isOpen={isModalOpen} isCentered >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Modal Title</ModalHeader>
