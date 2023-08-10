@@ -1,7 +1,7 @@
 import React from "react"
 import { useEffect, useContext, useRef } from "react"
 
-import { Container, Flex, Button, Center } from '@chakra-ui/react'
+import { Container, Flex, Button, Grid, GridItem } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 
 import Context from '../../context/todoContext'
