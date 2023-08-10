@@ -25,7 +25,7 @@ export default function Menu({ showInputHandler, setActiveMenu }) {
             <Button w={'100%'} backgroundColor={'#457b9d'} color={'white'} onClick={() => { setFilterNameState('none'); setActiveMenu('all') }}>Все задачи</Button>
           </GridItem>
           <GridItem w='100%' h='10'  >
-            <Button w={'100%'} backgroundColor={'#f4a261'} color={'white'} size='md' onClick={() => { setFilterNameState('work'); setActiveMenu('work') }}>К выполнению</Button>
+            <Button w={'100%'} backgroundColor={'#f4a261'} color={'white'} size='md' onClick={() => { setFilterNameState('work'); setActiveMenu('work') }}>Сделать</Button>
           </GridItem>
           <GridItem w='100%' h='10'  >
             <Button w={'100%'} backgroundColor={'#2a9d8f'} color={'white'} size='md' onClick={() => { setFilterNameState('done'); setActiveMenu('done') }}>Завершенно</Button>

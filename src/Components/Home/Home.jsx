@@ -6,10 +6,7 @@ import Context from '../../context/todoContext'
 import Navbar from "../Navbar/Navbar"
 import Menu from "../Menu/Menu"
 import TaslList from "../TaskList/TaslList"
-import AddInput from "../AddInput/AddInput";
 import reducer from '../../reducers/reducer'
-import filterReducer from '../../reducers/filterReducer'
-import { Center } from "@chakra-ui/react";
 
 
 export default function Home({ dataTaskList }) {
@@ -18,7 +15,6 @@ export default function Home({ dataTaskList }) {
   const [addInputVisible, setAddInputVisible] = useState(false)
 
   const [stateList, dispatch] = useReducer(reducer, dataTaskList)
-  // const [filterNameState, dispatchFilter] = useReducer(filterReducer, [])
   const [filterNameState, setFilterNameState] = useState('none')
 
   const [activeMenu, setActiveMenu] = useState('all')
