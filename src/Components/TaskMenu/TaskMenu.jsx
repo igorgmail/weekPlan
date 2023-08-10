@@ -86,7 +86,7 @@ export default function TaskMenu({ item, data }) {
               )}
 
               <Button onClick={deleteItemHandler} color={'white'} backgroundColor={'#e63946'}>Удалить</Button>
-              <Button onClick={closeModalHandler} color={'white'} backgroundColor={'#457b9d'}>Закрыть</Button>
+              {/* <Button onClick={closeModalHandler} color={'white'} backgroundColor={'#457b9d'}>Закрыть</Button> */}
             </Flex>
           </ModalFooter>
         </ModalContent>
