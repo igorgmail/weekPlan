@@ -1,13 +1,23 @@
 import React from "react"
 import { v4 as uuidv4 } from 'uuid'
-import { useEffect, useContext } from "react"
+import { useEffect, useContext, useState } from "react"
 import Context from '../../context/todoContext'
 import { Box, Input, InputGroup, Badge, Flex, Button } from "@chakra-ui/react";
 import { SettingsIcon } from '@chakra-ui/icons'
 
 import Task from "../Task/Task"
+import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 
 export default function TaslList({ activeMenu }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     console.log("----Render TaskList");
@@ -42,6 +52,7 @@ export default function TaslList({ activeMenu }) {
           </InputGroup>
         )
       }
+      <AllTaskSettingModal />
     </Box>
 
   )

@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useRef, useContext } from "react"
+import { useNavigate } from 'react-router-dom'
 import Context from '../../context/todoContext'
 
-import { useDisclosure } from '@chakra-ui/react'
+// import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Button, Flex, Textarea, Badge } from "@chakra-ui/react"
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
 export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
-  console.log("▶ ⇛ item:", item);
   const { dispatch } = useContext(Context)
-
+  const navigate = useNavigate()
 
   const [editorButton, setEditorButton] = useState(false)
   const textareaRef = useRef(null)
@@ -45,6 +45,25 @@ export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
       payload: itemIndex,
     })
   }
+
+  // Закрывайте модальное окно и предотвращайте переход назад при нажатии кнопки "назад"
+  const handlePopstate = (event) => {
+    if (isModalOpen) {
+      closeModalHandler();
+    } else {
+      navigate(-1);
+    }
+  };
+
+  useEffect(() => {
+    // Добавьте слушатель события popstate при монтировании компонента
+    window.addEventListener('popstate', handlePopstate);
+
+    // Удалите слушатель при размонтировании компонента
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+    };
+  }, [isModalOpen]);
 
   useEffect(() => {
     // Помещаем курсор в конец текста в textarea
