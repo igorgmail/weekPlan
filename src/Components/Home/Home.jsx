@@ -13,6 +13,7 @@ import { Center } from "@chakra-ui/react";
 
 
 export default function Home({ dataTaskList }) {
+  console.log("▶ ⇛ dataTaskList:", dataTaskList);
 
   const [addInputVisible, setAddInputVisible] = useState(false)
 
@@ -39,6 +40,8 @@ export default function Home({ dataTaskList }) {
   useEffect(() => {
 
     console.log("----Render Home");
+    console.log("----stateList Home", stateList);
+    localStorage.setItem('wp_day', JSON.stringify(stateList));
 
   })
 
@@ -66,9 +69,9 @@ export default function Home({ dataTaskList }) {
     <Context.Provider value={{ visibleList, dispatch, setFilterNameState, isPosibleSpaceDown }}>
       <Navbar />
       <Menu showInputHandler={showInputHandler} setActiveMenu={setActiveMenu} />
-      {addInputVisible &&
+      {/* {addInputVisible &&
         <AddInput showInputHandler={showInputHandler} />
-      }
+      } */}
       <TaslList activeMenu={activeMenu} />
     </Context.Provider>
 

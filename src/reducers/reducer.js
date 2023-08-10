@@ -1,8 +1,12 @@
 export default function reducer(state, action) {
   switch (action.type) {
     case 'ADDTASK':
-
-      return [action.payload, ...state]
+      const newTask = {
+        task: action.payload,
+        status: 'work',
+        dataEnd: Date.now()
+      }
+      return [newTask, ...state]
 
     case 'TOGGLE_STATUS':
       const newState = state.map((el, ind) => {

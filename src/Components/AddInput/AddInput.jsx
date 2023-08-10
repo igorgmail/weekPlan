@@ -12,6 +12,7 @@ export default function AddInput({ showInputHandler }) {
   const { dispatch, setOriginStateList } = useContext(Context)
 
   const [taskMenuShow, setTaskMenuShow] = useState(false)
+
   useEffect(() => {
     inputRef.current.focus()
   }, [])

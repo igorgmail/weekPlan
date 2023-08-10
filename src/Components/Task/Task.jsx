@@ -1,19 +1,25 @@
 import React from "react"
 import { useState, useEffect, useContext } from "react"
-import { Button, Flex, HStack, VStack, Input, InputGroup, Spacer } from "@chakra-ui/react"
+import { Button, Flex, HStack, VStack, Input, InputGroup, Spacer, InputRightElement } from "@chakra-ui/react"
 import { DeleteIcon, HamburgerIcon, CheckIcon } from '@chakra-ui/icons'
 
-import TaskMenu from "../TaskMenu/TaskMenu"
+import TaskMenu from "../TaskMenuModal/TaskMenuModal"
 import Context from "../../context/todoContext"
 
 export default function Task({ item, data }) {
   const { dispatch } = useContext(Context)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [inputRead, setInputRead] = useState(true) // Инпут только для чтения переключение (readOnly)
+  // const inputToogle = () => {
+  //   setInputRead((current) => !current)
+  // }
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-  const [inputRead, setInputRead] = useState(true) // Инпут только для чтения переключение (readOnly)
-  const inputToogle = () => {
-    setInputRead((current) => !current)
-  }
-
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   useEffect(() => {
     console.log("----Render Task");
   }, [])
@@ -28,7 +34,9 @@ export default function Task({ item, data }) {
       type: 'SORT_BY_DONE'
     })
   }
+  const modalShowHandler = () => {
 
+  }
 
   return (
     <Flex
@@ -45,29 +53,29 @@ export default function Task({ item, data }) {
           border='2px' borderColor='gray.400'
           borderRadius={'8px'}
         >
-          {item.status === 'done' ?
-            (
-              <Input
-                readOnly={inputRead}
-                defaultValue={item.task}
-                textDecoration={'line-through'}
-              backgroundColor={'#baf3d8'}
-              />
-            )
-            :
-            (
-              <Input
-                fontWeight={'500'}
-                readOnly={inputRead}
-                defaultValue={item.task}
-              textDecoration={'none'}
-              />
-          )
-        }
+
+
+        <Input
+          onClick={openModal}
+          readOnly
+          defaultValue={item.task}
+          cursor={'pointer'}
+          fontWeight={'500'}
+          textDecoration={item.status === 'done' ? 'line-through' : 'none'}
+          backgroundColor={item.status === 'done' ? '#baf3d8' : 'none'}
+        />
+        <TaskMenu item={item} data={data} isModalOpen={isModalOpen} closeModal={closeModal} />
+
+        <InputRightElement>
+          <Button onClick={toogleStatusButton} variant={'outline'} borderColor={'rgb(160, 174, 192)'}>
+            <CheckIcon fontSize={'1.2rem'} color={item.status === 'done' ? 'green.500' : ''} />
+          </Button>
+        </InputRightElement>
       </InputGroup>
 
+
       <Flex w={['100%', '100%', 'auto']} gap={'8px'}>
-        {item.status === 'done' ? (
+        {/* {item.status === 'done' ? (
           <Button onClick={toogleStatusButton} colorScheme='teal' variant='outline' p={'0'}>
               <CheckIcon color='green.500' boxSize={6} />
             </Button>
@@ -75,7 +83,7 @@ export default function Task({ item, data }) {
           <Button onClick={toogleStatusButton} p={'0'}>
             <CheckIcon boxSize={6} opacity={'0.5'} />
           </Button>
-        )}
+        )} */}
 
         <Spacer flex='1'></Spacer>
         <TaskMenu item={item} data={data} />
