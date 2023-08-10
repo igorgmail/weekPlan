@@ -8,6 +8,7 @@ import Context from "../../context/todoContext"
 
 export default function Task({ item, data }) {
   const { dispatch } = useContext(Context)
+
   const [inputRead, setInputRead] = useState(true) // Инпут только для чтения переключение (readOnly)
   const inputToogle = () => {
     setInputRead((current) => !current)
@@ -17,11 +18,8 @@ export default function Task({ item, data }) {
     console.log("----Render Task");
   }, [])
 
-
   const toogleStatusButton = (e) => {
-    console.log("▶ ⇛ e.target.closest('.task-input'):", e.target.closest('.task-input'));
     const dataItem = e.target.closest('.task-input').dataset.item
-    console.log("▶ ⇛ dataItem:", dataItem);
     dispatch({
       type: 'TOGGLE_STATUS',
       payload: dataItem
@@ -80,9 +78,7 @@ export default function Task({ item, data }) {
         )}
 
         <Spacer flex='1'></Spacer>
-        <Button p={'0'}>
-          <HamburgerIcon boxSize={6} color='grey.500' />
-        </Button>
+        <TaskMenu item={item} data={data} />
       </Flex>
 
     </Flex >

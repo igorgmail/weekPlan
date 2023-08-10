@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useRef } from 'react';
 
 import Context from '../../context/todoContext'
 
@@ -22,8 +22,11 @@ export default function Home({ dataTaskList }) {
 
   const [activeMenu, setActiveMenu] = useState('all')
 
+  let isPosibleSpaceDown = useRef(true)
+
   const showInputHandler = () => {
     setAddInputVisible((current) => !current)
+    isPosibleSpaceDown = !isPosibleSpaceDown
   }
 
   const visibleList = ((filterNameState) => {
@@ -39,9 +42,28 @@ export default function Home({ dataTaskList }) {
 
   })
 
+  useEffect(() => {
+
+    const handleKeyPress = (event) => {
+      // event.preventDefault()
+      if (event.key === ' ' && event.target.tagName !== 'textarea') {
+        console.log("▶ ⇛ isPosibleSpaceDown:", isPosibleSpaceDown);
+        if (addInputVisible) return
+        // Выполните вашу функцию здесь
+        console.log('Пробел нажат');
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
 
-    <Context.Provider value={{ visibleList, dispatch, setFilterNameState }}>
+    <Context.Provider value={{ visibleList, dispatch, setFilterNameState, isPosibleSpaceDown }}>
       <Navbar />
       <Menu showInputHandler={showInputHandler} setActiveMenu={setActiveMenu} />
       {addInputVisible &&

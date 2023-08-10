@@ -36,6 +36,17 @@ export default function reducer(state, action) {
     case 'FILTER_BY_DONE':
       return [...state].filter((el) => el.status === 'done')
 
+    case 'UPDATE_ITEM':
+      return [...state].map((el, ind) => {
+        if (ind === Number(action.payload.index)) {
+          return { ...el, task: action.payload.value }
+        }
+        return el
+      })
+
+    case 'DELETE_ITEM':
+      return [...state].filter((el, ind) => ind !== Number(action.payload))
+
 
     default:
       return [...state]

@@ -1,5 +1,5 @@
 import React from "react"
-import { useEffect, useContext } from "react"
+import { useEffect, useContext, useRef } from "react"
 
 import { Container, Flex, Button, Center } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
@@ -21,10 +21,6 @@ export default function Menu({ showInputHandler, setActiveMenu }) {
       type: 'FILTER_BY_All'
     })
   }
-
-
-
-
 
 
   useEffect(() => {
