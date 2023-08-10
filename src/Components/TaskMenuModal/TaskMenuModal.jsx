@@ -87,7 +87,7 @@ export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
           <ModalFooter>
             <Flex w={'100%'} justifyContent={'space-between'}>
               {editorButton ? (
-                <Button onClick={saveEditorHandler} color={'white'} backgroundColor={'#f4a261'}>Сохранить</Button>
+                <Button isActive={false} onClick={saveEditorHandler} color={'white'} backgroundColor={'#f4a261'}>Сохранить</Button>
               ) : (
                   <Button onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
                     <EditIcon></EditIcon>
@@ -97,7 +97,6 @@ export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
               <Button onClick={deleteItemHandler} color={'white'} backgroundColor={'#e63946'}>
                 <DeleteIcon></DeleteIcon>
               </Button>
-              {/* <Button onClick={closeModalHandler} color={'white'} backgroundColor={'#457b9d'}>Закрыть</Button> */}
             </Flex>
           </ModalFooter>
         </ModalContent>

@@ -2,7 +2,9 @@ import React from "react"
 import { v4 as uuidv4 } from 'uuid'
 import { useEffect, useContext } from "react"
 import Context from '../../context/todoContext'
-import { Box, Input, InputGroup, Badge } from "@chakra-ui/react";
+import { Box, Input, InputGroup, Badge, Flex, Button } from "@chakra-ui/react";
+import { SettingsIcon } from '@chakra-ui/icons'
+
 import Task from "../Task/Task"
 
 export default function TaslList({ activeMenu }) {
@@ -14,14 +16,20 @@ export default function TaslList({ activeMenu }) {
   const activeBage = ((activeMenu) => {
     if (activeMenu === 'all') return { text: 'Все Задачи', color: '#457b9d' }
     if (activeMenu === 'done') return { text: 'Завершено', color: '#2a9d8f' }
-    if (activeMenu === 'work') return { text: 'К Выполнению', color: '#f4a261' }
+    if (activeMenu === 'work') return { text: 'Сделать', color: '#f4a261' }
   })(activeMenu)
 
   const { visibleList } = useContext(Context);
   return (
-    <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'auto'} mt={'2rem'}>
-      <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
 
+    <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
+      <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
+      <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
+        <Button>
+          <SettingsIcon></SettingsIcon>
+        </Button>
+
+      </Flex>
       {visibleList.length
         ?
         (visibleList.map((el, ind) => (
@@ -35,5 +43,6 @@ export default function TaslList({ activeMenu }) {
         )
       }
     </Box>
+
   )
 }
