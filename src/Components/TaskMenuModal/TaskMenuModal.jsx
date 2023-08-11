@@ -8,8 +8,11 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseBu
 import { Button, Flex, Textarea, Badge } from "@chakra-ui/react"
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
-import SaveButton from "./SaveButton/SaveButton"
-import EditButton from "./EditButton/EditButton"
+// Buttons
+import SaveButton from "./Buttons/SaveButton"
+import EditButton from "./Buttons/EditButton"
+import DeleteButton from "./Buttons/DeleteButton"
+import CloseButton from "./Buttons/CloseButton"
 export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
   // console.log("▶ ⇛ myData:", myData);
   const { dispatch, visibleList } = useContext(Context)
@@ -44,11 +47,10 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
     })
   }
 
-  const deleteItemHandler = () => {
-    const itemIndex = modalBodyRef.current.dataset.modalIndex
+  const deleteItemHandler = (index) => {
     dispatch({
       type: 'DELETE_ITEM',
-      payload: itemIndex,
+      payload: index,
     })
   }
 
@@ -94,7 +96,7 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
           <ModalHeader>
             <Badge backgroundColor={itemDataForModal.status === 'done' ? '#2a9d8f' : '#f4a261'}>{itemDataForModal.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton fontSize={'1.2rem'} />
           <ModalBody ref={modalBodyRef}>
             {editorButton ? (
               <Textarea
@@ -113,23 +115,21 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
           <ModalFooter>
             <Flex w={'100%'} justifyContent={'space-between'}>
               {editorButton ? (
+                <>
                 <SaveButton saveEditorHandler={saveEditorHandler}></SaveButton>
+                  <CloseButton closeModalHandler={closeModalHandler}></CloseButton>
+                </>
 
-                // <Button
-                //   className={[style.buutonSave, style.buutonSave2].join(' ')}
-                //   isActive={false} onClick={saveEditorHandler} color={'white'} backgroundColor={'custom.green.100'}>Сохранить</Button>
-              ) : (
+              ) : (<>
                   <EditButton editorButtonHandler={editorButtonHandler}></EditButton>
+                  <DeleteButton deleteItemHandler={deleteItemHandler} index={itemDataForModal.index}></DeleteButton>
+                </>
 
-                  // <Button
-                  //   onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
-                  //   <EditIcon></EditIcon>
-                  // </Button>
               )}
 
-              <Button onClick={deleteItemHandler} color={'white'} backgroundColor={'#e63946'}>
+              {/* <Button onClick={deleteItemHandler} color={'white'} backgroundColor={'#e63946'}>
                 <DeleteIcon></DeleteIcon>
-              </Button>
+              </Button> */}
             </Flex>
           </ModalFooter>
         </ModalContent>
