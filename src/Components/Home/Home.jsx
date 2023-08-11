@@ -19,7 +19,7 @@ export default function Home({ dataTaskList }) {
 
   const [activeMenu, setActiveMenu] = useState('all')
 
-  let isPosibleSpaceDown = useRef(true)
+  let isPosibleSpaceDown = useRef(true) // Для Отслеживаения нажатия пробел
 
   const showInputHandler = () => {
     setAddInputVisible((current) => !current)
@@ -41,6 +41,7 @@ export default function Home({ dataTaskList }) {
 
   })
 
+  // Слушатель нажатия пробела
   useEffect(() => {
 
     const handleKeyPress = (event) => {
@@ -62,12 +63,9 @@ export default function Home({ dataTaskList }) {
 
   return (
 
-    <Context.Provider value={{ visibleList, dispatch, setFilterNameState, isPosibleSpaceDown }}>
+    <Context.Provider value={{ visibleList, dispatch, setFilterNameState }}>
       <Navbar />
       <Menu showInputHandler={showInputHandler} setActiveMenu={setActiveMenu} />
-      {/* {addInputVisible &&
-        <AddInput showInputHandler={showInputHandler} />
-      } */}
       <TaslList activeMenu={activeMenu} />
     </Context.Provider>
 

@@ -25,13 +25,13 @@ export default function AllTaskSettingModal({ isModalOpen, closeModal }) {
 
   return (
     <>
-      <Button
+      {/* <Button
         w={'100%'}
         colorScheme='green' size='md'
         onClick={onOpen}
       >
         <AddIcon />
-      </Button>
+      </Button> */}
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
         <ModalOverlay />

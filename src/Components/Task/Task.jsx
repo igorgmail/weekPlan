@@ -1,19 +1,26 @@
 import React from "react"
 import { useState, useEffect, useContext } from "react"
-import { Button, Flex, HStack, VStack, Input, InputGroup, Spacer, InputRightElement } from "@chakra-ui/react"
-import { DeleteIcon, HamburgerIcon, CheckIcon } from '@chakra-ui/icons'
+import { Button, Flex, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { CheckIcon } from '@chakra-ui/icons'
 
-import TaskMenu from "../TaskMenuModal/TaskMenuModal"
+import TaskMenuModal from "../TaskMenuModal/TaskMenuModal"
 import Context from "../../context/todoContext"
+// import TestModul from "../TestModul/TestModul"
 
-export default function Task({ item, data }) {
+export default function Task({ itemData }) {
   const { dispatch } = useContext(Context)
+  const item = itemData[0]
+  const index = itemData[1]
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [inputRead, setInputRead] = useState(true) // Инпут только для чтения переключение (readOnly)
-  // const inputToogle = () => {
-  //   setInputRead((current) => !current)
-  // }
-  const openModal = () => {
+  const [itemDataForModal, setItemDataForModal] = useState({ text: null, index: null })
+
+  const openModal = (e) => {
+    const itemIndex = e.target.dataset.itemIndex;
+    const itemStatus = e.target.dataset.itemStatus;
+    const itemText = e.target.value
+    const newData = { text: itemText, index: itemIndex, status: itemStatus };
+    setItemDataForModal(newData);
     setIsModalOpen(true);
   };
 
@@ -22,10 +29,10 @@ export default function Task({ item, data }) {
   };
   useEffect(() => {
     console.log("----Render Task");
-  }, [])
+  })
 
   const toogleStatusButton = (e) => {
-    const dataItem = e.target.closest('.task-input').dataset.item
+    const dataItem = e.target.closest('.task-input').dataset.itemIndex
     dispatch({
       type: 'TOGGLE_STATUS',
       payload: dataItem
@@ -34,28 +41,25 @@ export default function Task({ item, data }) {
       type: 'SORT_BY_DONE'
     })
   }
-  const modalShowHandler = () => {
-
-  }
 
   return (
     <Flex
       className={"task-input"}
-      data-item={data}
+      data-item-index={index}
       flexDirection={['column', 'column', 'row']} justifyContent={'center'} alignItems={'center'} w={'100%'} gap={'8px'} mb={'10px'}
-
     >
 
-        <InputGroup
-
+      {/* {isModalOpen && <TestModul myData={itemData} />} */}
+      <InputGroup
           w={'100%'}
           m={'auto'}
           border='2px' borderColor='gray.400'
           borderRadius={'8px'}
         >
 
-
         <Input
+          data-item-index={index}
+          data-item-status={item.status}
           onClick={openModal}
           readOnly
           defaultValue={item.task}
@@ -64,7 +68,8 @@ export default function Task({ item, data }) {
           textDecoration={item.status === 'done' ? 'line-through' : 'none'}
           backgroundColor={item.status === 'done' ? '#baf3d8' : 'none'}
         />
-        <TaskMenu item={item} data={data} isModalOpen={isModalOpen} closeModal={closeModal} />
+        {isModalOpen &&
+          <TaskMenuModal itemDataForModal={itemDataForModal} isModalOpen={isModalOpen} closeModal={closeModal} />}
 
         <InputRightElement>
           <Button onClick={toogleStatusButton} variant={'outline'} borderColor={'rgb(160, 174, 192)'}>
@@ -75,18 +80,7 @@ export default function Task({ item, data }) {
 
 
       <Flex w={['100%', '100%', 'auto']} gap={'8px'}>
-        {/* {item.status === 'done' ? (
-          <Button onClick={toogleStatusButton} colorScheme='teal' variant='outline' p={'0'}>
-              <CheckIcon color='green.500' boxSize={6} />
-            </Button>
-        ) : (
-          <Button onClick={toogleStatusButton} p={'0'}>
-            <CheckIcon boxSize={6} opacity={'0.5'} />
-          </Button>
-        )} */}
 
-        <Spacer flex='1'></Spacer>
-        <TaskMenu item={item} data={data} />
       </Flex>
 
     </Flex >

@@ -9,6 +9,9 @@ import Task from "../Task/Task"
 import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 
 export default function TaslList({ activeMenu }) {
+
+  const { visibleList } = useContext(Context);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -29,7 +32,6 @@ export default function TaslList({ activeMenu }) {
     if (activeMenu === 'work') return { text: 'Сделать', color: '#f4a261' }
   })(activeMenu)
 
-  const { visibleList } = useContext(Context);
   return (
 
     <Box border={'1px'} padding={'.5rem'} borderRadius={'8px'} w={['90%', '90%', '60%']} m={'1.5rem auto'}>
@@ -43,7 +45,7 @@ export default function TaslList({ activeMenu }) {
       {visibleList.length
         ?
         (visibleList.map((el, ind) => (
-          <Task item={el} key={uuidv4()} data={ind}></Task>
+          <Task itemData={[el, ind]} key={uuidv4()} data={ind}></Task>
         )))
         :
         (

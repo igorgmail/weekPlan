@@ -7,8 +7,10 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseBu
 import { Button, Flex, Textarea, Badge } from "@chakra-ui/react"
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
-export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
-  const { dispatch } = useContext(Context)
+export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
+  // console.log("▶ ⇛ myData:", myData);
+  const { dispatch, visibleList } = useContext(Context)
+  console.log("▶ ⇛ visibleList:", visibleList);
   const navigate = useNavigate()
 
   const [editorButton, setEditorButton] = useState(false)
@@ -58,25 +60,27 @@ export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
   useEffect(() => {
     // Добавьте слушатель события popstate при монтировании компонента
     window.addEventListener('popstate', handlePopstate);
+    console.log("▶ ⇛ popstate:");
 
     // Удалите слушатель при размонтировании компонента
     return () => {
       window.removeEventListener('popstate', handlePopstate);
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, closeModal]);
 
   useEffect(() => {
     // Помещаем курсор в конец текста в textarea
     if (textareaRef.current) {
       textareaRef.current.focus(); // Активация фокуса
-      const textLength = item.task.length;
+      const textLength = textareaRef.current.value.length;
+
       // Установка позиции курсора в конец текста
       textareaRef.current.setSelectionRange(textLength, textLength);
     }
-  }, [editorButton, item.task]);
+  }, [editorButton]);
 
   useEffect(() => {
-    console.log('----Modar Render');
+    console.log('----TASK Modar Render');
   })
   return (
     <>
@@ -84,31 +88,34 @@ export default function TaskMenu({ item, data, isModalOpen, closeModal }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <Badge backgroundColor={item.status === 'done' ? '#2a9d8f' : '#f4a261'}>{item.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
+            <Badge backgroundColor={itemDataForModal.status === 'done' ? '#2a9d8f' : '#f4a261'}>{itemDataForModal.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody ref={modalBodyRef} data-modal-index={data}>
+          <ModalBody ref={modalBodyRef}>
             {editorButton ? (
               <Textarea
                 ref={textareaRef}
                 size='sm'
-                // resize={''}
                 overflow="auto"
-                defaultValue={item.task}
+                defaultValue={itemDataForModal.text}
                 autoFocus
               >
               </Textarea>
             ) : (
-              item.task
+                itemDataForModal.text
             )}
 
           </ModalBody>
           <ModalFooter>
             <Flex w={'100%'} justifyContent={'space-between'}>
               {editorButton ? (
-                <Button isActive={false} onClick={saveEditorHandler} color={'white'} backgroundColor={'#f4a261'}>Сохранить</Button>
+                <Button
+
+                  isActive={false} onClick={saveEditorHandler} color={'white'} backgroundColor={'#f4a261'}>Сохранить</Button>
               ) : (
-                  <Button onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
+                  <Button
+                    onMouseEnter={() => { console.log("Mouse ENTER") }}
+                    onMouseLeave={() => { console.log("Mouse LEAVE") }} onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
                     <EditIcon></EditIcon>
                   </Button>
               )}
