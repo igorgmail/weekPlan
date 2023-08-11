@@ -8,6 +8,8 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseBu
 import { Button, Flex, Textarea, Badge } from "@chakra-ui/react"
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 
+import SaveButton from "./SaveButton/SaveButton"
+import EditButton from "./EditButton/EditButton"
 export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
   // console.log("▶ ⇛ myData:", myData);
   const { dispatch, visibleList } = useContext(Context)
@@ -19,7 +21,8 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
   const modalBodyRef = useRef(null)
 
 
-  const editorButtonHandler = () => {
+  const editorButtonHandler = (e) => {
+    e.target.blur()
     setEditorButton((stateEditor) => !stateEditor)
   }
 
@@ -110,14 +113,18 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
           <ModalFooter>
             <Flex w={'100%'} justifyContent={'space-between'}>
               {editorButton ? (
-                <Button
-                  className={[style.buutonSave, style.buutonSave2].join(' ')}
-                  isActive={false} onClick={saveEditorHandler} color={'white'}>Сохранить</Button>
+                <SaveButton saveEditorHandler={saveEditorHandler}></SaveButton>
+
+                // <Button
+                //   className={[style.buutonSave, style.buutonSave2].join(' ')}
+                //   isActive={false} onClick={saveEditorHandler} color={'white'} backgroundColor={'custom.green.100'}>Сохранить</Button>
               ) : (
-                  <Button
-                    onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
-                    <EditIcon></EditIcon>
-                  </Button>
+                  <EditButton editorButtonHandler={editorButtonHandler}></EditButton>
+
+                  // <Button
+                  //   onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
+                  //   <EditIcon></EditIcon>
+                  // </Button>
               )}
 
               <Button onClick={deleteItemHandler} color={'white'} backgroundColor={'#e63946'}>
