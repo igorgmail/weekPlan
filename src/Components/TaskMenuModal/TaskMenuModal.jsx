@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react"
+import style from './style.module.css'
 import { useNavigate } from 'react-router-dom'
 import Context from '../../context/todoContext'
 
@@ -110,12 +111,11 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
             <Flex w={'100%'} justifyContent={'space-between'}>
               {editorButton ? (
                 <Button
-
-                  isActive={false} onClick={saveEditorHandler} color={'white'} backgroundColor={'#f4a261'}>Сохранить</Button>
+                  className={[style.buutonSave, style.buutonSave2].join(' ')}
+                  isActive={false} onClick={saveEditorHandler} color={'white'}>Сохранить</Button>
               ) : (
                   <Button
-                    onMouseEnter={() => { console.log("Mouse ENTER") }}
-                    onMouseLeave={() => { console.log("Mouse LEAVE") }} onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
+                    onClick={editorButtonHandler} color={'white'} backgroundColor={'#2a9d8f'}>
                     <EditIcon></EditIcon>
                   </Button>
               )}

@@ -1,0 +1,23 @@
+@media(hover: hover) {
+  .buutonSave.buutonSave2 {
+    background-color: #2b6cb0;
+  }
+}
+
+@media(hover: none) {
+  .buutonSave {
+    background-color: #2b6cb0;
+  }
+}
+
+@media (pointer: fine) {
+  .buutonSave.buutonSave2 {
+    background-color: #2b6cb0;
+  }
+}
+
+@media (pointer: coarse) {
+  .buutonSave.buutonSave2 {
+    background-color: #2b6cb0;
+  }
+}
