@@ -25,6 +25,7 @@ export default function AddTaskModal() {
       onClose()
     } else return
   }
+
   useEffect(() => {
     console.log("Modal Add REnder");
   })
@@ -46,7 +47,7 @@ export default function AddTaskModal() {
         <ModalContent>
           <ModalHeader>Добавить Задачу</ModalHeader>
           <ModalCloseButton />
-          <ModalBody data-modal-index={'data'}>
+          <ModalBody>
             <Textarea
               ref={modalTextareaRef}
               size='sm'
@@ -54,7 +55,6 @@ export default function AddTaskModal() {
               overflow="auto"
               autoFocus
             // focusBorderColor={'red.500'}
-            // isInvalid={areaEmpty}
             >
             </Textarea>
           </ModalBody>

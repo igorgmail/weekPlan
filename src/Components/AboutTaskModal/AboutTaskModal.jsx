@@ -1,19 +1,17 @@
 import React, { useEffect, useState, useRef, useContext } from "react"
-import style from './style.module.css'
 import { useNavigate } from 'react-router-dom'
 import Context from '../../context/todoContext'
 
 // import { useDisclosure } from '@chakra-ui/react'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
-import { Button, Flex, Textarea, Badge } from "@chakra-ui/react"
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { Flex, Textarea, Badge } from "@chakra-ui/react"
 
 // Buttons
 import SaveButton from "./Buttons/SaveButton"
 import EditButton from "./Buttons/EditButton"
 import DeleteButton from "./Buttons/DeleteButton"
 import CloseButton from "./Buttons/CloseButton"
-export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
+export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
   // console.log("▶ ⇛ myData:", myData);
   const { dispatch, visibleList } = useContext(Context)
   console.log("▶ ⇛ visibleList:", visibleList);
@@ -37,7 +35,7 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
 
   const saveEditorHandler = () => {
     const textValue = modalBodyRef.current.querySelector('textarea').value
-    const itemIndex = modalBodyRef.current.dataset.modalIndex
+    const itemIndex = itemDataForModal.index
     dispatch({
       type: 'UPDATE_ITEM',
       payload: {
@@ -63,6 +61,8 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
     }
   };
 
+  //TODO Для смартфонов закрытие модалки по кнопке назад
+
   useEffect(() => {
     // Добавьте слушатель события popstate при монтировании компонента
     window.addEventListener('popstate', handlePopstate);
@@ -74,12 +74,12 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
     };
   }, [isModalOpen, closeModal]);
 
+
+  // Помещаем курсор в конец текста в textarea
   useEffect(() => {
-    // Помещаем курсор в конец текста в textarea
     if (textareaRef.current) {
       textareaRef.current.focus(); // Активация фокуса
       const textLength = textareaRef.current.value.length;
-
       // Установка позиции курсора в конец текста
       textareaRef.current.setSelectionRange(textLength, textLength);
     }
@@ -108,7 +108,7 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
               >
               </Textarea>
             ) : (
-                itemDataForModal.text
+              itemDataForModal.text
             )}
 
           </ModalBody>
@@ -116,20 +116,16 @@ export default function TaskMenuModal({ itemDataForModal, isModalOpen, closeModa
             <Flex w={'100%'} justifyContent={'space-between'}>
               {editorButton ? (
                 <>
-                <SaveButton saveEditorHandler={saveEditorHandler}></SaveButton>
+                  <SaveButton saveEditorHandler={saveEditorHandler}></SaveButton>
                   <CloseButton closeModalHandler={closeModalHandler}></CloseButton>
                 </>
 
               ) : (<>
-                  <EditButton editorButtonHandler={editorButtonHandler}></EditButton>
-                  <DeleteButton deleteItemHandler={deleteItemHandler} index={itemDataForModal.index}></DeleteButton>
-                </>
+                <EditButton editorButtonHandler={editorButtonHandler}></EditButton>
+                <DeleteButton deleteItemHandler={deleteItemHandler} index={itemDataForModal.index}></DeleteButton>
+              </>
 
               )}
-
-              {/* <Button onClick={deleteItemHandler} color={'white'} backgroundColor={'#e63946'}>
-                <DeleteIcon></DeleteIcon>
-              </Button> */}
             </Flex>
           </ModalFooter>
         </ModalContent>

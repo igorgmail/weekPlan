@@ -10,22 +10,24 @@ import AllTaskSettingModal from "../AllTaskSettingModal/AllTaskSettingModal";
 
 export default function TaslList({ activeMenu }) {
 
+  const [isAllTaskModalOpen, setIsAllTaskModalOpen] = useState(false);
   const { visibleList } = useContext(Context);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   useEffect(() => {
     console.log("----Render TaskList");
 
   })
+
   const activeBage = ((activeMenu) => {
     if (activeMenu === 'all') return { text: 'Все Задачи', color: '#457b9d' }
     if (activeMenu === 'done') return { text: 'Завершено', color: '#2a9d8f' }
@@ -38,7 +40,8 @@ export default function TaslList({ activeMenu }) {
       <Flex alignItems={'center'} justifyContent={'space-between'} mb={'1rem'}>
       <Badge textAlign={'center'} backgroundColor={activeBage.color} color={'white'} mb={['10px', '1rem', '2rem']}>{activeBage.text}</Badge>
         <Button>
-          <SettingsIcon></SettingsIcon>
+          <AllTaskSettingModal />
+
         </Button>
 
       </Flex>
@@ -49,12 +52,12 @@ export default function TaslList({ activeMenu }) {
         )))
         :
         (
+          // Если нет задач
           <InputGroup w={'50%'} m={'auto'} mt={'2rem'} border='2px' borderColor='gray.400' borderRadius={'8px'}>
             <Input fontWeight={'500'} readOnly={true} defaultValue={'Нет Задач'} textDecoration={'none'} textAlign={'center'} />
           </InputGroup>
         )
       }
-      <AllTaskSettingModal />
     </Box>
 
   )

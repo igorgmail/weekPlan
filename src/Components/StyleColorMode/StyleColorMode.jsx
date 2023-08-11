@@ -36,11 +36,13 @@ export default function StyleColorMode() {
   useEffect(() => {
 
   }, [colorMode])
-  console.log("▶ ⇛ colorMode:", colorMode);
+
+  console.log("----RENDER  colorMode:", colorMode);
+
   localStorage.setItem('wp_colorMode', colorMode);
   return (
 
-    <Button onClick={toggleColorMode} variant={'outline'}>
+    <Button onClick={toggleColorMode} variant={'ghost'} size='md'>
       {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
     </Button>
   )

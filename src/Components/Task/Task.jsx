@@ -3,9 +3,8 @@ import { useState, useEffect, useContext } from "react"
 import { Button, Flex, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { CheckIcon } from '@chakra-ui/icons'
 
-import TaskMenuModal from "../TaskMenuModal/TaskMenuModal"
+import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
 import Context from "../../context/todoContext"
-// import TestModul from "../TestModul/TestModul"
 
 export default function Task({ itemData }) {
   const { dispatch } = useContext(Context)
@@ -49,7 +48,6 @@ export default function Task({ itemData }) {
       flexDirection={['column', 'column', 'row']} justifyContent={'center'} alignItems={'center'} w={'100%'} gap={'8px'} mb={'10px'}
     >
 
-      {/* {isModalOpen && <TestModul myData={itemData} />} */}
       <InputGroup
           w={'100%'}
           m={'auto'}
@@ -69,7 +67,7 @@ export default function Task({ itemData }) {
           backgroundColor={item.status === 'done' ? '#baf3d8' : 'none'}
         />
         {isModalOpen &&
-          <TaskMenuModal itemDataForModal={itemDataForModal} isModalOpen={isModalOpen} closeModal={closeModal} />}
+          <AboutTaskModal itemDataForModal={itemDataForModal} isModalOpen={isModalOpen} closeModal={closeModal} />}
 
         <InputRightElement>
           <Button onClick={toogleStatusButton} variant={'outline'} borderColor={'rgb(160, 174, 192)'}>

@@ -1,15 +1,10 @@
 import React from "react"
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 
 import { Container, Button, Grid, GridItem } from '@chakra-ui/react'
 
 import AddTaskModal from "../AddTaskModal/AddTaskModal"
-import Context from '../../context/todoContext'
-export default function Menu({ setActiveMenu }) {
-
-
-  const { setFilterNameState } = useContext(Context)
-
+export default function Menu({ setActiveMenuHandler }) {
 
   useEffect(() => {
     console.log("----Render Menu");
@@ -22,13 +17,13 @@ export default function Menu({ setActiveMenu }) {
 
         <Grid templateColumns={['1fr 1fr', '1fr 1fr 1fr 1fr']} gap={2}>
           <GridItem w='100%' h='10' rowSpan={1} colSpan={['2', '1']}>
-            <Button w={'100%'} backgroundColor={'#457b9d'} color={'white'} onClick={() => { setFilterNameState('none'); setActiveMenu('all') }}>Все задачи</Button>
+            <Button w={'100%'} backgroundColor={'#457b9d'} color={'white'} onClick={() => { setActiveMenuHandler('all') }}>Все задачи</Button>
           </GridItem>
           <GridItem w='100%' h='10'  >
-            <Button w={'100%'} backgroundColor={'custom.red.100'} color={'white'} size='md' onClick={() => { setFilterNameState('work'); setActiveMenu('work') }}>Сделать</Button>
+            <Button w={'100%'} backgroundColor={'custom.red.100'} color={'white'} size='md' onClick={() => { setActiveMenuHandler('work') }}>Сделать</Button>
           </GridItem>
           <GridItem w='100%' h='10'  >
-            <Button w={'100%'} backgroundColor={'custom.yellow.100'} color={'white'} size='md' onClick={() => { setFilterNameState('done'); setActiveMenu('done') }}>Завершенно</Button>
+            <Button w={'100%'} backgroundColor={'custom.yellow.100'} color={'white'} size='md' onClick={() => { setActiveMenuHandler('done') }}>Завершенно</Button>
           </GridItem>
           <GridItem w='100%' h='10' rowSpan={1} colSpan={['2', '1']} >
 
