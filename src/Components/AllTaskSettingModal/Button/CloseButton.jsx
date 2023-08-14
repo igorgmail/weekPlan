@@ -1,10 +1,10 @@
 import React from "react"
-import style from '../style.module.css'
 
 import { Button } from "@chakra-ui/react"
-export default function CloseButton({ closeModalHandler }) {
+export default function CloseButton({ closeModal }) {
   return (
     <Button
-      isActive={false} onClick={closeModalHandler} color={'white'} backgroundColor={'#e6838b'}>Закрыть</Button>
+      m={'auto'}
+      isActive={false} onClick={closeModal} color={'white'} backgroundColor={'#e6838b'}>Закрыть</Button>
   )
 }

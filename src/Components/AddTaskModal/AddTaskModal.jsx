@@ -7,27 +7,27 @@ import { Button, Flex, Textarea } from "@chakra-ui/react"
 import { AddIcon } from '@chakra-ui/icons'
 
 import textCoctroller from "../../controller/textCoctroller"
-export default function AddTaskModal() {
+// actions
+import actions from "../../reducers/actionsGenerate"
+
+
+const AddTaskModal = React.memo(() => {
 
   const { dispatch } = useContext(Context)
   const { isOpen, onOpen, onClose } = useDisclosure()
-
   const modalTextareaRef = useRef(null)
 
   const addTaskHandler = () => {
     const textTask = modalTextareaRef.current.value
 
     if (textCoctroller.isEmpty(textTask)) {
-      dispatch({
-        type: 'ADDTASK',
-        payload: textTask
-      })
+      dispatch(actions.addTask(textTask))
       onClose()
     } else return
   }
 
   useEffect(() => {
-    console.log("Modal Add REnder");
+    console.log("Modal Add Task REnder 1");
   })
 
 
@@ -44,7 +44,7 @@ export default function AddTaskModal() {
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent m={'auto 1rem'}>
           <ModalHeader>Добавить Задачу</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -68,4 +68,6 @@ export default function AddTaskModal() {
       </Modal>
     </>
   )
-}
+})
+
+export default AddTaskModal

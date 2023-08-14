@@ -6,6 +6,11 @@ import Context from '../../context/todoContext'
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter } from "@chakra-ui/react"
 import { Flex, Textarea, Badge } from "@chakra-ui/react"
 
+import textCoctroller from "../../controller/textCoctroller"
+
+// actions
+import actions from "../../reducers/actionsGenerate"
+
 // Buttons
 import SaveButton from "./Buttons/SaveButton"
 import EditButton from "./Buttons/EditButton"
@@ -14,7 +19,6 @@ import CloseButton from "./Buttons/CloseButton"
 export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeModal }) { // myData, item, data,
   // console.log("▶ ⇛ myData:", myData);
   const { dispatch, visibleList } = useContext(Context)
-  console.log("▶ ⇛ visibleList:", visibleList);
   const navigate = useNavigate()
 
   const [editorButton, setEditorButton] = useState(false)
@@ -36,20 +40,15 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
   const saveEditorHandler = () => {
     const textValue = modalBodyRef.current.querySelector('textarea').value
     const itemIndex = itemDataForModal.index
-    dispatch({
-      type: 'UPDATE_ITEM',
-      payload: {
-        index: itemIndex,
-        value: textValue
-      }
-    })
+    if (textCoctroller.isEmpty(textValue)) {
+      dispatch(actions.updatiItem({ itemIndex, textValue }))
+    } else {
+      return
+    }
   }
 
   const deleteItemHandler = (index) => {
-    dispatch({
-      type: 'DELETE_ITEM',
-      payload: index,
-    })
+    dispatch(actions.deleteItem(index))
   }
 
   // Закрывайте модальное окно и предотвращайте переход назад при нажатии кнопки "назад"
@@ -92,7 +91,7 @@ export default function AboutTaskModal({ itemDataForModal, isModalOpen, closeMod
     <>
       <Modal onClose={closeModalHandler} isOpen={isModalOpen} isCentered >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent m={'auto 1rem'}>
           <ModalHeader>
             <Badge backgroundColor={itemDataForModal.status === 'done' ? '#2a9d8f' : '#f4a261'}>{itemDataForModal.status === 'done' ? 'Завершенно' : 'Сделать'}</Badge>
           </ModalHeader>

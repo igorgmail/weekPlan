@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useState, useReducer } from 'react';
+import { useState, useReducer, useCallback } from 'react';
 
 import Context from '../../context/todoContext'
 
@@ -24,7 +24,7 @@ export default function Home({ dataTaskList }) {
   //   setAddInputVisible((current) => !current)
   //   isPosibleSpaceDown = !isPosibleSpaceDown
   // }
-  function setActiveMenuHandler(value) {
+  const setActiveMenuHandler = useCallback((value) => {
     if (value === 'all') {
       setFilterNameState('none'); setActiveMenu('all')
     }
@@ -35,12 +35,15 @@ export default function Home({ dataTaskList }) {
       setFilterNameState('work'); setActiveMenu('work')
     }
 
-  }
+  }, [])
+
   const visibleList = ((filterNameState) => {
     if (filterNameState === 'none') return stateList
     if (filterNameState === 'done') return stateList.filter((el) => el.status === 'done')
     if (filterNameState === 'work') return stateList.filter((el) => el.status === 'work')
   })(filterNameState)
+  console.log("▶ ⇛ visibleList:", visibleList);
+
 
   useEffect(() => {
 

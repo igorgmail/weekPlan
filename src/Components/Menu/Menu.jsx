@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { Container, Button, Grid, GridItem } from '@chakra-ui/react'
 
 import AddTaskModal from "../AddTaskModal/AddTaskModal"
-export default function Menu({ setActiveMenuHandler }) {
+const Menu = React.memo(({ setActiveMenuHandler }) => {
 
   useEffect(() => {
     console.log("----Render Menu");
@@ -34,4 +34,6 @@ export default function Menu({ setActiveMenuHandler }) {
     </Container>
     </>
   )
-}
+})
+
+export default Menu

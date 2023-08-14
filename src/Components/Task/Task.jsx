@@ -6,6 +6,9 @@ import { CheckIcon } from '@chakra-ui/icons'
 import AboutTaskModal from "../AboutTaskModal/AboutTaskModal"
 import Context from "../../context/todoContext"
 
+// actions
+import actions from "../../reducers/actionsGenerate"
+
 export default function Task({ itemData }) {
   const { dispatch } = useContext(Context)
   const item = itemData[0]
@@ -32,13 +35,8 @@ export default function Task({ itemData }) {
 
   const toogleStatusButton = (e) => {
     const dataItem = e.target.closest('.task-input').dataset.itemIndex
-    dispatch({
-      type: 'TOGGLE_STATUS',
-      payload: dataItem
-    })
-    dispatch({
-      type: 'SORT_BY_DONE'
-    })
+    dispatch(actions.toogleStatus(dataItem))
+    dispatch(actions.sortByDone())
   }
 
   return (
@@ -56,6 +54,7 @@ export default function Task({ itemData }) {
         >
 
         <Input
+          // as={'div'}
           data-item-index={index}
           data-item-status={item.status}
           onClick={openModal}
